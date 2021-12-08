@@ -1,0 +1,19 @@
+#!/bin/bash
+#-----
+# Author: Pedro Ribeiro
+# Date: 2021 Dec 08
+# Purpose: Kills a process residing on a port
+# Usage: sudo ./killproc 8080
+#-----
+
+if [ $# -gt 0 ]; then
+port=$1
+kill -9 $(lsof -t -i:$port) > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+echo "Success! Process on port $port has been forcibly exited"
+else
+echo "Failed to kill process"
+fi
+else
+echo "Missing port number as argument"
+fi
